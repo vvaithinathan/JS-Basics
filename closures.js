@@ -10,11 +10,12 @@ var outer = function(){
 //Invoke outer saving the return value into another variable called 'inner'.
 
   //Code Here
+var inner = outer();
 
 //Once you do that, invoke inner.
 
   //Code Here
-
+console.log(inner());
 
 
 //Next problem
@@ -33,7 +34,8 @@ var callFriend = function(){
 //Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
 
   //Code Here
-
+var inner = callFriend();
+console.log(inner('435-215-9248'));
 
 
 //Next Problem
@@ -45,6 +47,13 @@ var callFriend = function(){
 */
 
   //Code Here
+var makeCounter = function() {
+  var counter = 1;
+  return function() {
+    console.log(counter++);
+  }
+}
+
   var count = makeCounter();
   count() // 1
   count() // 2
@@ -63,8 +72,31 @@ var callFriend = function(){
 */
 
   //Code Here
+var func2 = function() {
+  var counter = 1;
+  return function() {
 
+    if (counter === 1) {
+      counter = 0;
+      return '1st time execution' + counter;
+    }
+    else {
+      return 'sorry dude, you executed more than once';
+    }
+  }
+}
 
+var func1 = function(func2) {
+  return function() {
+	   func2();
+  }
+}
+
+var x = func2();
+console.log(x());
+console.log(x());
+y = func1(x);
+console.log(y());
 
 //Next Problem
 
@@ -73,7 +105,25 @@ var callFriend = function(){
 /*
   Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
+var fnCounter = function(fun, n) {
+  var counter = 1;
+  return function() {
+    if (counter <= n) {
+      counter++;
+      return fun();
+    }
+  }
+}
 
+var foo = function() {
+    return 'vivek';
+}
+
+var fn = fnCounter(foo, 2);
+
+console.log(fn());
+console.log(fn());
+console.log(fn());
 
 
 //Next Problem
@@ -92,20 +142,40 @@ var callFriend = function(){
   Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
     //Answer Here
-
+1
+2
+3
+4
+5
 
   Now, run the function in your console and note what happpens.
 
   Was your answer right or wrong?
 
     //Answer Here
-
+6
+6
+6
+6
+6
 
   Fix the counter function so that it works the way you expect it to work. (logging 1 then 2 then 3, etc)
 */
 
     //Code Here
+    var newCounter = function() {
+      for (i = 1 ; i <= 5 ; i++) {
+        var inner = function(e) {
+          setTimeout(function timer() {
+            console.log(e);
+          }, e*1000);
+        }
 
+        inner(i);
+      }
+    }
+
+    newCounter();
 
 
 //Next Problem
@@ -124,5 +194,3 @@ var callFriend = function(){
 
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
-
-
